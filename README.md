@@ -11,7 +11,7 @@ Google Antigravity / Cloud Code Assist model provider for
 
 This is a DSH Web plugin. It registers a DSH `LlmAdapter`
 under provider route `antigravity`, stores OAuth credentials under DSH home,
-talks to the Cloud Code Assist streaming API directly, and provides full bilingual (English & Simplified Chinese) i18n support in the Web settings page.
+talks to the Cloud Code Assist streaming API directly, and provides full bilingual (English & Simplified Chinese) i18n support in the Web plugin page.
 
 > Unofficial integration. This project is not affiliated with or endorsed by
 > Google. Use it only with accounts and services you are authorized to access.
@@ -27,12 +27,12 @@ dsh plugin --profile web add github:LiZhenNet/dsh-antigravity
 ### Option 2: From Local Release Tarball
 
 ```sh
-npm run pack:dist
-dsh plugin --profile web add ./dist/dsh-antigravity-0.0.4.tgz
+pnpm run pack:dist
+dsh plugin --profile web add ./dist/dsh-antigravity-0.0.8.tgz
 ```
 
 The package declares a DSH bundle patch, so installation automatically mounts
-the host plugin and browser settings page.
+the host plugin and browser plugin page.
 
 If your DSH version does not support `dsh plugin add`, copy the package into
 the Web profile manually:
@@ -57,17 +57,19 @@ dsh web
 
 ## Login
 
-Open **Settings > Antigravity** and click **Login**. The settings page starts
+Open **Settings > Plugins > Plugin configuration > Antigravity** and click **Login**. The plugin page starts
 Google OAuth and refreshes quota after login completes.
 
 ![Antigravity Settings - Not Signed In](./assets/images/settings-not-signed-in.png)
 
-After login, the settings page displays account information, quota grouped by model family, reset times, and model selector options:
+After login, the plugin page displays account information, quota grouped by model family, reset times, and model selector options:
 
 - **Gemini Models** — Gemini Flash / Pro variants share one quota pool (green bars).
 - **Claude and GPT models** — Claude Opus, Claude Sonnet, and GPT-OSS share a separate 3P quota pool (cyan bars).
 
 Each group shows a **5-hour limit** (smooths short-term demand) and a **weekly limit** (tied to your subscription tier) with a live countdown to reset.
+
+When an Antigravity model is active, the composer also shows a compact quota bar beside the model selector; hover it to see the remaining percentage and reset time.
 
 ![Antigravity Settings - Signed In with Quota](./assets/images/settings-signed-in.png)
 
@@ -90,7 +92,7 @@ Keep that file private. It contains access and refresh tokens.
 ## Models
 
 After login, select the **Antigravity** provider in DSH's model picker. Use the
-model selector in **Settings > Antigravity** to enable or disable individual
+model selector in **Settings > Plugins > Plugin configuration > Antigravity** to enable or disable individual
 models (enabled models are prioritized at the top of the list) — the live remaining quota percentage is shown next to each one.
 
 Registered model IDs:
