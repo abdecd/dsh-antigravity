@@ -28,7 +28,7 @@ dsh plugin --profile web add github:LiZhenNet/dsh-antigravity
 
 ```sh
 pnpm run pack:dist
-dsh plugin --profile web add ./dist/dsh-antigravity-0.0.8.tgz
+dsh plugin --profile web add ./dist/dsh-antigravity-0.0.12.tgz
 ```
 
 The package declares a DSH bundle patch, so installation automatically mounts
@@ -99,6 +99,7 @@ Registered model IDs:
 
 | Model ID | Name | Quota pool |
 |---|---|---|
+| `gemini-3.8-flash` | Gemini 3.8 Flash | Gemini |
 | `gemini-3.7-flash` | Gemini 3.7 Flash | Gemini |
 | `gemini-3.6-flash` | Gemini 3.6 Flash | Gemini |
 | `gemini-3.5-flash` | Gemini 3.5 Flash | Gemini |
@@ -115,8 +116,11 @@ Models in the same quota pool share a weekly limit and a 5-hour limit. Quota is
 consumed proportionally to token cost, so heavier models (e.g. Claude Opus)
 drain the pool faster than lighter ones.
 
-The plugin resolves these public IDs to runtime model IDs using the live
-`fetchAvailableModels` catalog when available, with static routing fallbacks.
+When authenticated, the plugin refreshes the live `fetchAvailableModels`
+catalog while listing models (cached for one week) and automatically adds
+newly advertised models. If the user has not customized the enabled set,
+new models are enabled automatically; otherwise they are shown unchecked.
+Known public IDs still have static metadata and routing fallbacks.
 
 ## License
 

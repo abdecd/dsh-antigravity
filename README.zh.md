@@ -26,7 +26,7 @@ dsh plugin --profile web add github:LiZhenNet/dsh-antigravity
 
 ```sh
 pnpm run pack:dist
-dsh plugin --profile web add ./dist/dsh-antigravity-0.0.8.tgz
+dsh plugin --profile web add ./dist/dsh-antigravity-0.0.12.tgz
 ```
 
 该 package 声明了 DSH bundle patch，安装后会自动挂载 host 插件与浏览器插件页面。
@@ -94,6 +94,7 @@ $DSH_HOME/storages/antigravity-oauth.json
 
 | 模型 ID | 名称 | 额度池 |
 |---|---|---|
+| `gemini-3.8-flash` | Gemini 3.8 Flash | Gemini |
 | `gemini-3.7-flash` | Gemini 3.7 Flash | Gemini |
 | `gemini-3.6-flash` | Gemini 3.6 Flash | Gemini |
 | `gemini-3.5-flash` | Gemini 3.5 Flash | Gemini |
@@ -108,7 +109,10 @@ $DSH_HOME/storages/antigravity-oauth.json
 
 同一额度池内的模型共享 5 小时与每周额度。额度按 Token 成本比例扣除，因此较重的大模型（如 Claude Opus）消耗额度速度会快于轻量模型。
 
-插件会在可用时通过实时的 `fetchAvailableModels` 目录将这些公开 ID 解析为内部运行时模型 ID，并自带静态路由兜底。
+登录后，插件会在获取模型列表时刷新实时的 `fetchAvailableModels`
+目录（缓存 1 周），并自动加入后端新发布的模型。如果用户没有自定义
+启用列表，新模型会自动启用；否则会以未勾选状态展示。已知公开 ID 仍保留
+静态模型信息与路由兜底。
 
 ---
 
