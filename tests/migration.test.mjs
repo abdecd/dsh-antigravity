@@ -14,7 +14,7 @@ test("manifest declares split session owner and target peers", async () => {
   assert.equal(pkg.peerDependencies["@deepseek-ai/cordis"], "^4.0.1");
   assert.ok(pkg.dsh.client.inject.includes("@deepseek-ai/dsh-api-session-controller"));
   assert.ok(!JSON.stringify(pkg).includes(["@deepseek-ai/dsh-client", "runtime"].join("-")));
-  for (const name of pkg.dsh.client.inject) assert.equal(pkg.peerDependencies[name], "^0.1.2-rc.1");
+  for (const name of pkg.dsh.client.inject) assert.equal(pkg.peerDependencies[name], "^0.1.5-rc.2");
 });
 
 // Route wiring regression only; not a real host/browser authentication test.
